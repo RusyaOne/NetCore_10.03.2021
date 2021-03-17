@@ -416,15 +416,15 @@ FodyWeavers.xsd
 11.WebSockets/HttpCommunication.png
 11.WebSockets/WsCommunication.png
 12.UnitTests/Topic12Agenda.md
-
-BeforeLessonQuestions/Lesson7Questions.md
-BeforeLessonQuestions/Lesson8Questions.md
-BeforeLessonQuestions/Lesson9Questions.md
+12.UnitTests/BowlingGameExample.md
 
 Roaster.md
 TODO.md
 
+BeforeLessonQuestions/Lesson2Questions.md
+BeforeLessonQuestions/Lesson7Questions.md
+BeforeLessonQuestions/Lesson8Questions.md
+BeforeLessonQuestions/Lesson9Questions.md
 BeforeLessonQuestions/Lesson10Questions.md
 BeforeLessonQuestions/Lesson11Questions.md
-12.UnitTests/BowlingGameExample.md
 BeforeLessonQuestions/Lesson13Questions.md

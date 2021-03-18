@@ -1,30 +1,21 @@
 ﻿using BasicInfo.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BasicInfo.Controllers
 {
     public class NewsController : Controller
     {
-        private INewsRepository _newsRepository { get; }
-
-        public NewsController(INewsRepository newsRepository)
+        public IActionResult Index()
         {
-            _newsRepository = newsRepository;
-        }
-
-        public IActionResult Index(string name)
-        {
-            ViewData["name"] = name;
             return View();
         }
 
-        public IActionResult Show(int id)
+        public IActionResult Get(int index)
         {
-            ViewData["news"] = _newsRepository.GetNews().Single(news => news.Id == id).Title;
+            var news = NewsBase.GetNews();
+            ViewData["News"] = news.SingleOrDefault(x => x.Id == index);
+
             return View();
         }
     }

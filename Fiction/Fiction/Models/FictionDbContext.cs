@@ -1,15 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fiction.Models
 {
     public class FictionDbContext : DbContext
     {
         public DbSet<Character> Characters { get; set; }
+        public DbSet<Story> Stories { get; set; }
 
 
         private IConfiguration _configuration;
@@ -21,15 +18,22 @@ namespace Fiction.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("FictionDbConnection"));
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("FictionDbConnection")).UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Story>().HasData(
+                new Story { Id = 1, Name = "Adventure Time" },
+                new Story { Id = 2, Name = "Futurama" },
+                new Story { Id = 3, Name = "LOTR" });
+
             modelBuilder.Entity<Character>().HasData(
-                new Character { Id = 1, Name = "Finn Mertens", Age = 14 },
-                new Character { Id = 2, Name = "Philip Fry", Age = 25 },
-                new Character { Id = 3, Name = "Arven Undomiel", Age = 2700 });
+                new Character { Id = 1, Name = "Finn Mertens", Age = 14, StoryId = 1 },
+                new Character { Id = 2, Name = "Philip Fry", Age = 25, StoryId = 2 },
+                new Character { Id = 3, Name = "Arven Undomiel", Age = 2700, StoryId = 3 },
+                new Character { Id = 4, Name = "Princess Bubblegum", Age = 830, StoryId = 1 },
+                new Character { Id = 5, Name = "Samwise Gamgee", Age = 55, StoryId = 3 });
         }
     }
 }

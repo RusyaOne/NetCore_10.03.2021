@@ -3,14 +3,16 @@ using Fiction.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fiction.Migrations
 {
     [DbContext(typeof(FictionDbContext))]
-    partial class FictionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210324171600_Add stories")]
+    partial class Addstories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,12 +33,7 @@ namespace Fiction.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StoryId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("StoryId");
 
                     b.ToTable("Characters");
 
@@ -45,22 +42,19 @@ namespace Fiction.Migrations
                         {
                             Id = 1,
                             Age = 14,
-                            Name = "Finn Mertens",
-                            StoryId = 1
+                            Name = "Finn Mertens"
                         },
                         new
                         {
                             Id = 2,
                             Age = 25,
-                            Name = "Philip Fry",
-                            StoryId = 2
+                            Name = "Philip Fry"
                         },
                         new
                         {
                             Id = 3,
                             Age = 2700,
-                            Name = "Arven Undomiel",
-                            StoryId = 3
+                            Name = "Arven Undomiel"
                         });
                 });
 
@@ -94,22 +88,6 @@ namespace Fiction.Migrations
                             Id = 3,
                             Name = "LOTR"
                         });
-                });
-
-            modelBuilder.Entity("Fiction.Models.Character", b =>
-                {
-                    b.HasOne("Fiction.Models.Story", "Story")
-                        .WithMany("Characters")
-                        .HasForeignKey("StoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Story");
-                });
-
-            modelBuilder.Entity("Fiction.Models.Story", b =>
-                {
-                    b.Navigation("Characters");
                 });
 #pragma warning restore 612, 618
         }

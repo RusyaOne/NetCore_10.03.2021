@@ -1,24 +1,27 @@
 ﻿using Fiction.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fiction.Controllers
 {
+    [Route("[controller]")]
     public class CharactersController : Controller
     {
-        private FictionDbContext _dbContext;
+        private readonly ICharactersRepository _charactersRepository;
 
-        public CharactersController(FictionDbContext dbContext)
+        public CharactersController(ICharactersRepository charactersRepository)
         {
-            _dbContext = dbContext;
+            _charactersRepository = charactersRepository;
         }
 
+        [Route("c/index")]
+        [Route("[action]")]
         public IActionResult Index()
         {
-            ViewData["Character"] = _dbContext.Characters.FirstOrDefault();
+            var characters = _charactersRepository.GetCharacters();
+
+            ViewData["Characters"] = characters.ToList();
+
             return View();
         }
     }

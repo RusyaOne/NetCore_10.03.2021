@@ -401,13 +401,13 @@ FodyWeavers.xsd
 4.Model/SeedData.md
 4.Model/Infestation DB Schema.png
 5.Controller/Topic5Agenda.md
+5.Controller/RestApiExample/wwwroot/TerrainImage55.jpg
+5.Controller/RestApiExample/wwwroot/TerrainImage14.jpg
 6.View/Topic6Agenda.md
 7.Identity/Topic7Agenda.md
 8.MessageSending/Topic8Agenda.md
 9.Middleware/Topic9Agenda.md
 9.Middleware/MiddlewareDeclaration.png
-5.Controller/RestApiExample/wwwroot/TerrainImage55.jpg
-5.Controller/RestApiExample/wwwroot/TerrainImage14.jpg
 10.BackgroundTasks/Topic10Agenda.md
 11.WebSockets/Topic11Agenda.md
 13.Publish/Topic13Agenda.md
@@ -423,9 +423,11 @@ TODO.md
 
 BeforeLessonQuestions/Lesson2Questions.md
 BeforeLessonQuestions/Lesson3Questions.md
+BeforeLessonQuestions/Lesson5Questions.md
 BeforeLessonQuestions/Lesson7Questions.md
 BeforeLessonQuestions/Lesson8Questions.md
 BeforeLessonQuestions/Lesson9Questions.md
 BeforeLessonQuestions/Lesson10Questions.md
 BeforeLessonQuestions/Lesson11Questions.md
 BeforeLessonQuestions/Lesson13Questions.md
+

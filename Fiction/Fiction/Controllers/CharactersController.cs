@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Fiction.Controllers
 {
-    [Route("[controller]")]
     public class CharactersController : Controller
     {
         private readonly ICharactersRepository _charactersRepository;
@@ -14,15 +13,11 @@ namespace Fiction.Controllers
             _charactersRepository = charactersRepository;
         }
 
-        [Route("c/index")]
-        [Route("[action]")]
         public IActionResult Index()
         {
-            var characters = _charactersRepository.GetCharacters();
+            var characters = _charactersRepository.GetCharacters().ToList();
 
-            ViewData["Characters"] = characters.ToList();
-
-            return View();
+            return View(characters);
         }
     }
 }

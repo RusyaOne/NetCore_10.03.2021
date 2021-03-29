@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<Character>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -12,7 +13,7 @@
             <th>Age</th>
             <th>Story name</th>
         </tr>
-        @foreach (var character in ViewData["Characters"] as List<Character>)
+        @foreach (var character in Model)
         {
             <tr>
                 <td>@character.Id</td>

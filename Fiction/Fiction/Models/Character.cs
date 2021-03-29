@@ -1,4 +1,6 @@
-﻿namespace Fiction.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Fiction.Models
 {
     public class Character
     {

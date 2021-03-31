@@ -1,5 +1,4 @@
 ﻿using Fiction.Models;
-using Fiction.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +11,16 @@ namespace Fiction.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICharactersRepository _charactersRepository;
-        private readonly IStoriesRepository _storiesRepository;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ICharactersRepository charactersRepository,
-            IStoriesRepository storiesRepository)
+        public HomeController(ILogger<HomeController> logger)
         {
-            _charactersRepository = charactersRepository;
-            _storiesRepository = storiesRepository;
+            _logger = logger;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
         public IActionResult Privacy()

@@ -12,9 +12,15 @@ namespace Fiction.Models
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Character> GetCharacters()
+        public IEnumerable<Character> GetAll()
         {
             return _dbContext.Characters;
+        }
+
+        public void Add(Character character)
+        {
+            _dbContext.Add(character);
+            _dbContext.SaveChanges();
         }
     }
 }

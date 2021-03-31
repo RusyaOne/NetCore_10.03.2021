@@ -1,25 +1,23 @@
-﻿@model List<Character>
+﻿@model List<CharactersIndexViewModel>
 @{
-    ViewData["Title"] = "Characters info";
+    ViewData["Title"] = "Characters' info";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Characters info</h1>
+    <h1 class="display-4">Characters' info</h1>
 
     <table class="table" style="text-align: center">
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Age</th>
+            <th>Character name</th>
+            <th>Character name</th>
             <th>Story name</th>
         </tr>
-        @foreach (var character in Model)
+        @foreach (var viewModel in Model)
         {
             <tr>
-                <td>@character.Id</td>                
-                <td>@character.Name</td>
-                <td>@character.Age</td>
-                <td>@character.Story.Name</td>
+                <td><a href="characters/get?characterId=@viewModel.CharacterId">@viewModel.CharacterName</a></td>
+                <td><a asp-controller="Characters" asp-action="Get" asp-route-characterId="@viewModel.CharacterId">@viewModel.CharacterName</a></td>
+                <td>@viewModel.StoryName</td>
             </tr>
         }
     </table>

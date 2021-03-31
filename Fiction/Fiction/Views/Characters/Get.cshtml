@@ -1,0 +1,23 @@
+﻿@model Character
+@{
+    ViewData["Title"] = "Character's info";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Character's info</h1>
+
+    <table class="table" style="text-align: center">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Story name</th>
+        </tr>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+            <td>@Model.Age</td>
+            <td>@Model.Story.Name</td>
+        </tr>       
+    </table>
+</div>

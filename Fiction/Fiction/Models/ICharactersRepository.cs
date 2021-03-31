@@ -4,6 +4,7 @@ namespace Fiction.Models
 {
     public interface ICharactersRepository
     {
-        IEnumerable<Character> GetCharacters();
+        IEnumerable<Character> GetAll();
+        void Add(Character character);
     }
 }

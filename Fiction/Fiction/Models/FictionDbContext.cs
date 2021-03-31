@@ -31,9 +31,7 @@ namespace Fiction.Models
             modelBuilder.Entity<Character>().HasData(
                 new Character { Id = 1, Name = "Finn Mertens", Age = 14, StoryId = 1 },
                 new Character { Id = 2, Name = "Philip Fry", Age = 25, StoryId = 2 },
-                new Character { Id = 3, Name = "Arven Undomiel", Age = 2700, StoryId = 3 },
-                new Character { Id = 4, Name = "Princess Bubblegum", Age = 830, StoryId = 1 },
-                new Character { Id = 5, Name = "Samwise Gamgee", Age = 55, StoryId = 3 });
+                new Character { Id = 3, Name = "Arven Undomiel", Age = 2700, StoryId = 3 });
         }
     }
 }

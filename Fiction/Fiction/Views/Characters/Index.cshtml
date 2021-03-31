@@ -1,6 +1,6 @@
 ﻿@model List<Character>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Characters info";
 }
 
 <div class="text-center">
@@ -10,14 +10,16 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
+            <th>Name</th>
             <th>Age</th>
             <th>Story name</th>
         </tr>
         @foreach (var character in Model)
         {
             <tr>
-                <td>@character.Id</td>
-                <td>@character.Name</td>
+                <td>@character.Id</td>                
+                <td><a href="get?characterId=@character.Id">@character.Name</a></td>
+                <td><a asp-controller="Characters" asp-action="Get" asp-route-characterId="@character.Id">@character.Name</a></td>
                 <td>@character.Age</td>
                 <td>@character.Story.Name</td>
             </tr>

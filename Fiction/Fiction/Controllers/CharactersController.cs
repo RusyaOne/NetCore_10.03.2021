@@ -19,5 +19,24 @@ namespace Fiction.Controllers
 
             return View(characters);
         }
+
+        public IActionResult Get([FromQuery] int characterId)
+        {
+            var character = _charactersRepository.GetCharacters().Single(x => x.Id == characterId);
+
+            return View(character);
+        }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(Character character)
+        {
+            //_charactersRepository.Add();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -22,17 +22,6 @@ namespace Fiction.Controllers
             _storiesRepository = storiesRepository;
         }
 
-        public IActionResult Index()
-        {
-            HomeIndexViewModel viewModel = new HomeIndexViewModel
-            {
-                Characters = _charactersRepository.GetCharacters(),
-                Stories = _storiesRepository.GetStories()
-            };
-
-            return View(viewModel);
-        }
-
         public IActionResult Privacy()
         {
             return View();

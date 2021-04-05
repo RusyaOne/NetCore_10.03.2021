@@ -14,9 +14,10 @@ namespace Fiction.Controllers
             _charactersRepository = charactersRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index([FromQuery]string name, [FromQuery]int? age)
         {
             var characters = _charactersRepository.GetAll().
+                Where(character => character.Name.Equals(name ?? character.Name) && character.Age.Equals(age ?? character.Age)).
                 Select(character => 
                     new CharactersIndexViewModel 
                     { 

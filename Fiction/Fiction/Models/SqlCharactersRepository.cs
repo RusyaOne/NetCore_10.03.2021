@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Fiction.Models
@@ -10,11 +11,21 @@ namespace Fiction.Models
         public SqlCharactersRepository(FictionDbContext dbContext)
         {
             _dbContext = dbContext;
+        } 
+
+        public Character Get(int characterId)
+        {
+            return _dbContext.Characters.SingleOrDefault(character => character.Id.Equals(characterId));
         }
 
         public IEnumerable<Character> GetAll()
         {
             return _dbContext.Characters;
+        }
+
+        public IEnumerable<Character> GetAllWithDependencies()
+        {
+            return _dbContext.Characters.Include(character => character.Story);
         }
 
         public void Add(Character character)

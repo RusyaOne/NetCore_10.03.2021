@@ -9,16 +9,14 @@
     <table class="table" style="text-align: center">
         <tr>
             <th>Character name</th>
-            <th>Age</th>
             <th>Story name</th>
         </tr>
         @foreach (var viewModel in Model)
         {
-            <tr>
-                <td><a asp-controller="Characters" asp-action="Get" asp-route-characterId="@viewModel.CharacterId">@viewModel.CharacterName</a></td>
-                <td>@viewModel.Age</td>
-                <td>@viewModel.StoryName</td>
-            </tr>
+        <tr>
+            <td><a asp-controller="Characters" asp-action="Get" asp-route-characterId="@viewModel.CharacterId">@viewModel.CharacterName</a></td>
+            <td>@viewModel.StoryName</td>
+        </tr>
         }
     </table>
 </div>

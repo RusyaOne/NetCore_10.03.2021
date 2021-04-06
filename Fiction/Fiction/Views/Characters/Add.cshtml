@@ -7,21 +7,22 @@
     <h1 class="display-4">Add characters</h1>
 
     <form asp-controller="Characters" asp-action="Add" method="post">
+        <div asp-validation-summary="All"></div>
         <label asp-for="Name"></label><br>
         <input asp-for="Name" type="text" /><br>
-        <span asp-validation-for="Name"></span>
+        <span asp-validation-for="Name"></span><br>
 
         <label asp-for="Age"></label><br>
         <input asp-for="Age" type="number" /><br>
-        <span asp-validation-for="Age"></span>
+        <span asp-validation-for="Age"></span><br>
 
         <label asp-for="Gender"></label><br>
         <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" type="text"></select><br>
-        <span asp-validation-for="Gender"></span>
+        <span asp-validation-for="Gender"></span><br>
 
         <label asp-for="StoryId"></label><br>
         <input asp-for="StoryId" type="number" /><br>
-        <span asp-validation-for="StoryId"></span>
+        <span asp-validation-for="StoryId"></span><br>
 
         <button type="submit">Add character</button>
     </form>

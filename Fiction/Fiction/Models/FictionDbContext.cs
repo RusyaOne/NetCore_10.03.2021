@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Fiction.Models
 {
-    public class FictionDbContext : DbContext
+    public class FictionDbContext : IdentityDbContext
     {
         public DbSet<Character> Characters { get; set; }
         public DbSet<Story> Stories { get; set; }
@@ -23,6 +24,8 @@ namespace Fiction.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Story>().HasData(
                 new Story { Id = 1, Name = "Adventure Time" },
                 new Story { Id = 2, Name = "Futurama" },

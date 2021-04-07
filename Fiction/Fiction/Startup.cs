@@ -1,4 +1,7 @@
+using System;
+using Fiction.Infrastructure;
 using Fiction.Models;
+using Fiction.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,8 +44,11 @@ namespace Fiction
                 options.Password.RequiredUniqueChars = 1;
             });
 
+            services.AddScoped<IMessageSender, SmsMessageSender>();
             services.AddScoped<ICharactersRepository, SqlCharactersRepository>();
             services.AddScoped<IStoryRepository, SqlStoryRepository>();
+
+            services.Configure<FictionConfiguration>(Configuration.GetSection("Fiction"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,8 +66,27 @@ namespace Fiction
 
             app.UseRouting();
 
+            app.Use(async (context, next) =>
+            {
+                Console.WriteLine("Middleware 1 before");
+                await next();
+                Console.WriteLine("Middleware 1 after");
+            });
+
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.Run(async context =>
+            {
+                Console.WriteLine("This is terminal middleware");
+            });
+
+            app.Use(async (context, next) =>
+            {
+                Console.WriteLine("Middleware 2 before");
+                await next();
+                Console.WriteLine("Middleware 2 after");
+            });
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,4 +1,6 @@
+using Fiction.Configuration;
 using Fiction.Models;
+using Fiction.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +42,10 @@ namespace Fiction
                 options.Password.RequiredLength = 4;
                 options.Password.RequiredUniqueChars = 1;
             });
+
+            services.Configure<FictionConfiguration>(Configuration.GetSection("Fiction"));
+
+            services.AddScoped<IMessageSender, SmsMessageSender>();
 
             services.AddScoped<ICharactersRepository, SqlCharactersRepository>();
             services.AddScoped<IStoryRepository, SqlStoryRepository>();

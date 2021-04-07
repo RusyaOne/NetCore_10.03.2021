@@ -1,5 +1,4 @@
 ﻿using Fiction.Models;
-using Fiction.Services;
 using Fiction.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,11 +25,6 @@ namespace Fiction.Controllers
             };
 
             return View(viewModel);
-        }
-
-        public void SendMessage([FromServices] IMessageSender messageSender)
-        {
-            messageSender.SendMessage();
         }
     }
 }

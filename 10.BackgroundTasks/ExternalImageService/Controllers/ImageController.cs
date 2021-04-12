@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExternalImageService.Controllers
 {
+    [ApiController]
     public class ImageController : Controller
     {
-
+        [HttpGet("Image")]
         public IActionResult GetImage()
         {
-            return View();
+            var imageBytes = System.IO.File.ReadAllBytes("wwwroot/TerrainImage55.jpg");
+            return new FileContentResult(imageBytes, "image/jpeg");
         }
     }
 }

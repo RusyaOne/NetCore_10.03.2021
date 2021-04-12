@@ -1,11 +1,9 @@
-using System;
 using Fiction.Infrastructure;
 using Fiction.Models;
 using Fiction.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -48,6 +46,9 @@ namespace Fiction
             services.AddScoped<IMessageSender, SmsMessageSender>();
             services.AddScoped<ICharactersRepository, SqlCharactersRepository>();
             services.AddScoped<IStoryRepository, SqlStoryRepository>();
+            services.AddScoped<IExternalImageServiceClient, ExternalImageServiceClient>();
+
+            services.AddMemoryCache();
 
             services.Configure<FictionConfiguration>(Configuration.GetSection("Fiction"));
         }
@@ -67,39 +68,16 @@ namespace Fiction
 
             app.UseRouting();
 
-            app.Map("/map1", HandleMapTest1);
-
-            app.Map("/map2", HandleMapTest2);
-
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.Run(async context =>
-            {
-                Console.WriteLine("This is terminal middleware");
-            });
+            app.UseWriteToConsole("This is custom middleware's output");
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
-        }
-
-        private static void HandleMapTest1(IApplicationBuilder app)
-        {
-            app.Run(async context =>
-            {
-                await context.Response.WriteAsync("Map Test 1");
-            });
-        }
-
-        private static void HandleMapTest2(IApplicationBuilder app)
-        {
-            app.Run(async context =>
-            {
-                await context.Response.WriteAsync("Map Test 2");
             });
         }
     }

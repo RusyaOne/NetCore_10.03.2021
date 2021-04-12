@@ -5,6 +5,7 @@ using Fiction.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -66,12 +67,9 @@ namespace Fiction
 
             app.UseRouting();
 
-            app.Use(async (context, next) =>
-            {
-                Console.WriteLine("Middleware 1 before");
-                await next();
-                Console.WriteLine("Middleware 1 after");
-            });
+            app.Map("/map1", HandleMapTest1);
+
+            app.Map("/map2", HandleMapTest2);
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -81,18 +79,27 @@ namespace Fiction
                 Console.WriteLine("This is terminal middleware");
             });
 
-            app.Use(async (context, next) =>
-            {
-                Console.WriteLine("Middleware 2 before");
-                await next();
-                Console.WriteLine("Middleware 2 after");
-            });
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+
+        private static void HandleMapTest1(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Map Test 1");
+            });
+        }
+
+        private static void HandleMapTest2(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Map Test 2");
             });
         }
     }

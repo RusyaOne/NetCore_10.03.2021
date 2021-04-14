@@ -1,9 +1,8 @@
 ﻿using Fiction.Services;
+using Fiction.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Fiction.Controllers
@@ -12,11 +11,15 @@ namespace Fiction.Controllers
     {
         private readonly IExternalImageServiceClient _client;
         private readonly IMemoryCache _cache;
+        private readonly IProcessingChannel _channel;
 
-        public ImageController(IExternalImageServiceClient client, IMemoryCache cache)
+        public ImageController(IExternalImageServiceClient client,
+            IMemoryCache cache,
+            IProcessingChannel channel)
         {
             _client = client;
             _cache = cache;
+            _channel = channel;
         }
 
         public IActionResult Get()
@@ -27,10 +30,31 @@ namespace Fiction.Controllers
             if (image is null)
             {
                 image = _client.GetImage();
-                _cache.Set<byte[]>(cacheKey, image);
+                var options = new MemoryCacheEntryOptions();
+                options.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30);
+                _cache.Set<byte[]>(cacheKey, image, options);
             }
 
             return new FileContentResult(image, "image/jpeg");
+        }
+
+        [HttpGet]
+        public IActionResult Upload()
+        {
+            return View(new ImageUploadViewModel { UploadStage = UploadStage.Upload });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(ImageUploadViewModel viewModel)
+        {
+            if (viewModel.Image.Length > 0)
+            {
+                await _channel.Set(viewModel.Image);
+                viewModel.UploadStage = UploadStage.Completed;
+                viewModel.Image = null;
+            }
+
+            return View(viewModel);
         }
     }
 }

@@ -46,9 +46,14 @@ namespace Fiction
             services.AddScoped<IMessageSender, SmsMessageSender>();
             services.AddScoped<ICharactersRepository, SqlCharactersRepository>();
             services.AddScoped<IStoryRepository, SqlStoryRepository>();
-            services.AddScoped<IExternalImageServiceClient, ExternalImageServiceClient>();
+
+            services.AddSingleton<IExternalImageServiceClient, ExternalImageServiceClient>();
+            services.AddSingleton<IProcessingChannel, ImageProcessingChannel>();
 
             services.AddMemoryCache();
+
+            services.AddHostedService<LoadImageService>();
+            services.AddHostedService<UploadImageService>();
 
             services.Configure<FictionConfiguration>(Configuration.GetSection("Fiction"));
         }

@@ -1,7 +1,7 @@
 ﻿function OpenConnection() {
     let webSocket
     function GetWebSocketMessages(onMessageReceived) {
-        let url = `wss://${location.host}/stream/get`;
+        let url = `wss://${location.host}/chat/handshake`;
         webSocket = new WebSocket(url);
 
         webSocket.onmessage = onMessageReceived;
@@ -10,7 +10,7 @@
     let ulElement = document.getElementById('chatMessages');
 
     GetWebSocketMessages(function (message) {
-        ulElement.innerHTML = ulElement.innerHTML += `<li>${message.data}</li>`
+        ulElement.innerHTML = ulElement.innerHTML + `<li>${message.data}</li>`
     });
 
     document.getElementById("sendmessage").addEventListener("click", function () {

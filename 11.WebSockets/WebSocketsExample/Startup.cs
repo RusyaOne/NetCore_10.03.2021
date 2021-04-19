@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebSocketsExample.Services;
 
 namespace WebSocketsExample
 {
@@ -19,6 +20,8 @@ namespace WebSocketsExample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddSingleton<IChatHandler, ChatHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +40,8 @@ namespace WebSocketsExample
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseWebSockets();
 
             app.UseEndpoints(endpoints =>
             {

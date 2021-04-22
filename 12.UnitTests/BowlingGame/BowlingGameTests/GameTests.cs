@@ -13,70 +13,72 @@ namespace BowlingGameTests
         }
 
         [Fact]
-        public void Game_FullGameZeros_Success()
+        public void Game_CallRoll_CalledSuccesfully()
+        {
+            _game.Roll(0);
+        }
+
+        [Fact]
+        public void Game_FullGameZeroes_ScoreIsZero()
         {
             RollMany(20, 0);
 
-            Assert.Equal(_game.Score(), 0);
+            int resultScore = _game.Score();
+
+            Assert.Equal(0, resultScore);
         }
 
         [Fact]
-        public void Game_FullGameOnes_Success()
+        public void Game_FullGameOnes_ScoreIsCorrect()
         {
             RollMany(20, 1);
 
-            Assert.Equal(_game.Score(), 20);
+            int resultScore = _game.Score();
+
+            Assert.Equal(20, resultScore);
         }
 
         [Fact]
-        public void Game_OneSpareWithZeroes_Success()
+        public void Game_OneSpare_ScoreIsCorrect()
         {
-            RollSpare();
-            RollMany(18, 0);
-
-            Assert.Equal(_game.Score(), 10);
-        }
-
-        [Fact]
-        public void Game_OneSpareWithOnes_Success()
-        {
-            RollSpare();
+            _game.Roll(5);
+            _game.Roll(5);
             RollMany(18, 1);
 
-            Assert.Equal(_game.Score(), 29);
+            int resultScore = _game.Score();
+
+            Assert.Equal(29, resultScore);
         }
 
         [Fact]
-        public void Game_OneStrikeWithOnes_Success()
-        {
-            _game.Roll(10);
-            _game.Roll(5);
-            _game.Roll(3);
-            RollMany(17, 0);
-
-            Assert.Equal(_game.Score(), 26);
-        }
-
-        [Fact]
-        public void Game_PerfectGame_Success()
-        {
-            RollMany(12, 10);
-
-            Assert.Equal(_game.Score(), 300);
-        }
-
-        [Fact]
-        public void Game_AllSpare_Success()
+        public void Game_FullGameFives_ScoreIsCorrect()
         {
             RollMany(21, 5);
 
-            Assert.Equal(_game.Score(), 155);
+            int resultScore = _game.Score();
+
+            Assert.Equal(150, resultScore);
         }
 
-        private void RollSpare()
+        [Fact]
+        public void Game_OneStrike_ScoreIsCorrect()
         {
-            _game.Roll(5);
-            _game.Roll(5);
+            _game.Roll(10);
+            RollMany(18, 1);
+
+            int resultScore = _game.Score();
+
+            Assert.Equal(30, resultScore);
+        }
+
+        [Fact]
+        public void Game_FullGameStrikes_ScoreIsCorrect()
+        {
+            RollMany(12, 10);
+
+            int resultScore = _game.Score();
+
+            Assert.Equal(300, resultScore);
         }
 
         private void RollMany(int times, int pins)

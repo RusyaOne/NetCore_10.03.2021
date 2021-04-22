@@ -1,34 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BowlingGame
+﻿namespace BowlingGame
 {
     public class Game
     {
-        private int[] _rolls = new int[22];
-        private int currentRoll = 0;
+        private int[] _rolls = new int[21];
+        private int _currentRoll = 0;
 
-        public void Roll(int pins)
+        public void Roll(int numberOfPins)
         {
-            _rolls[currentRoll++] = pins;
+            _rolls[_currentRoll++] = numberOfPins;
         }
 
         public int Score()
         {
             int score = 0;
             int roll = 0;
-            for (int frame = 0; frame < 10; frame++) 
+            for (int frame = 0; frame < 10; frame++)
             {
-                if (IsSpare(roll))
+                if (_rolls[roll] == 10)
                 {
-                    score += _rolls[roll] + _rolls[roll + 1] + _rolls[roll + 2];
-                    roll += 2;
+                    score += 10 + _rolls[roll + 1] + _rolls[roll + 2];
+                    roll++;
                 }
-                else if (_rolls[roll] == 10)
+                else if (_rolls[roll] + _rolls[roll + 1] == 10)
                 {
-                    score += _rolls[roll] + _rolls[roll + 1] + _rolls[roll + 2];
-                    roll += 1;
+                    score += 10 + _rolls[roll + 2];
+                    roll += 2;
                 }
                 else
                 {
@@ -38,11 +34,6 @@ namespace BowlingGame
             }
 
             return score;
-        }
-
-        private bool IsSpare(int roll)
-        {
-            return _rolls[roll] + _rolls[roll + 1] == 10;
         }
     }
 }

@@ -1,5 +1,4 @@
 using Calculator;
-using System;
 using Xunit;
 
 namespace CalculatorTests
@@ -7,19 +6,29 @@ namespace CalculatorTests
     public class BasicOperationsTests
     {
         [Theory]
-        [InlineData(4, 5, 9)]
-        [InlineData(1, 3, 4)]
-        [InlineData(-1, 53, 52)]
-        public void Add_AddTwoIntegers_ResultIsCorrect(int firstNumber, int secondNumber, int expected)
+        [InlineData(3, 5, 8)]
+        [InlineData(-5, 5, 0)]
+        [InlineData(102312, 12498, 114810)]
+        public void Add_TwoPositiveNumbers_ResultIsEqualToSumOfNumbers(int firstNumber, int secondNumber, int sum)
         {
             //Arrange
-            BasicOperations basicOperations = new BasicOperations();
+            BasicOperations sut = new BasicOperations();
 
             //Act
-            var result = basicOperations.Add(firstNumber, secondNumber);
+            int result = sut.Add(firstNumber, secondNumber);
 
             //Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(sum, result);
+        }
+
+        [Fact]
+        public void Substract_TwoPositiveNumbers_ResultIsEqualToSubstraction()
+        {
+            BasicOperations sut = new BasicOperations();
+
+            int result = sut.Add(-3, -5);
+
+            Assert.Equal(8, result);
         }
     }
 }

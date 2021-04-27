@@ -1,6 +1,6 @@
 ﻿namespace Fiction.Infrastructure
 {
-    public class FictionConfiguration
+    public class FictionConfiguration : IFictionConfiguration
     {
         public string SenderEmailAddress { get; set; }
         public string SenderEmailPassword { get; set; }

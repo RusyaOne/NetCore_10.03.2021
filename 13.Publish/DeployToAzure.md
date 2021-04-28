@@ -1,6 +1,6 @@
 Настраиваем БД в Azure:
 1) Запускаем Azure Shell
-2) Создаем Resource Group:      az group create --name FictionResourceGroup --location "West Europe". 
+2) Создаем Resource Group:      az group create --name FictionResourceGroup --location "West Europe"
 Показать доступные FREE хостинги:      az appservice list-locations --sku FREE
 3) Создаем SQL server в Azure:       az sql server create --name fiction --resource-group FictionResourceGroup --location "West Europe" --admin-user TestUser --admin-password password
 4) Конфигурим firewall:      az sql server firewall-rule create --resource-group FictionResourceGroup --server fiction --name AllowAzureIps --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0    
@@ -18,3 +18,8 @@
 6) Пушим изменения в Azure:      git push azure master
 7) Смотрим содержимое сервера Kudu:      https://fiction.scm.azurewebsites.net/
 8) Делаем изменение и репаблишим.
+
+
+Адреса по которым можно попросить доступ к запуску тестов в Azure Pipelines:
+private: azpipelines-freetier@microsoft.com
+public: azpipelines-ossgrant@microsoft.com

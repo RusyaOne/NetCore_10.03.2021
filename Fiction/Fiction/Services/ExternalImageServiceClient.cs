@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Fiction.Infrastructure;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using RestSharp;
 using System;
 using System.IO;
@@ -7,14 +9,15 @@ namespace Fiction.Services
 {
     public class ExternalImageServiceClient : IExternalImageServiceClient
     {
-        private const string ImageClientUrl = "http://localhost:56227";
-
         private readonly IRestClient _restClient;
+        private readonly FictionConfiguration _configuration;
 
-        public ExternalImageServiceClient(IRestClient restClient)
+        public ExternalImageServiceClient(IRestClient restClient, IOptions<FictionConfiguration> options)
         {
+            _configuration = options.Value;
+
             _restClient = restClient;
-            _restClient.BaseUrl = new Uri(ImageClientUrl);
+            _restClient.BaseUrl = new Uri(_configuration.ImageClientUrl);
         }
 
         public byte[] GetImage()

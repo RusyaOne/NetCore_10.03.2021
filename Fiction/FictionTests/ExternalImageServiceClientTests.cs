@@ -1,4 +1,6 @@
-﻿using Fiction.Services;
+﻿using Fiction.Infrastructure;
+using Fiction.Services;
+using Microsoft.Extensions.Options;
 using Moq;
 using RestSharp;
 using System;
@@ -19,7 +21,10 @@ namespace FictionTests
             restClient.Setup(x => x.Execute(It.IsAny<IRestRequest>())).Returns(new RestResponse { RawBytes = expected });
             restClient.SetupSet(x => x.BaseUrl = uri);
 
-            ExternalImageServiceClient sut = new ExternalImageServiceClient(restClient.Object);
+            Mock<IOptions<FictionConfiguration>> configurationOptions = new Mock<IOptions<FictionConfiguration>>(MockBehavior.Strict);
+            configurationOptions.SetupGet(x => x.Value).Returns(new FictionConfiguration { ImageClientUrl = "http://localhost:56227" });
+
+            ExternalImageServiceClient sut = new ExternalImageServiceClient(restClient.Object, configurationOptions.Object);
 
             //Act
             var result = sut.GetImage();
@@ -41,7 +46,10 @@ namespace FictionTests
             restClient.Setup(x => x.Execute(It.IsAny<IRestRequest>())).Throws(new Exception());
             restClient.SetupSet(x => x.BaseUrl = uri);
 
-            ExternalImageServiceClient sut = new ExternalImageServiceClient(restClient.Object);
+            Mock<IOptions<FictionConfiguration>> configurationOptions = new Mock<IOptions<FictionConfiguration>>(MockBehavior.Strict);
+            configurationOptions.SetupGet(x => x.Value).Returns(new FictionConfiguration { ImageClientUrl = "http://localhost:56227" });
+
+            ExternalImageServiceClient sut = new ExternalImageServiceClient(restClient.Object, configurationOptions.Object);
 
             //Act & Asssert
             Assert.Throws<Exception>(() => sut.GetImage());
